@@ -1,0 +1,22 @@
+services: 
+  - docker
+
+before_install:
+  - docker build -t cesgo2009/react-test -f ./client/Dockerfile.dev ./client/Dockerfile.dev ./client
+
+scripts:
+  - docker run cesgo2009/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t cesgo2009/multi-client ./client
+  - docker build -t cesgo2009/multi-nginx ./nginx
+  - docker build -t cesgo2009/multi-server ./server
+  - docker build -t cesgo2009/multi-worker ./worker
+
+# log in Docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# Push to docker hub using docker cli
+  - docker push cesgo2009/multi-client
+  - docker push cesgo2009/multi-nginx
+  - docker push cesgo2009/multi-server
+  - docker push cesgo2009/multi-worker
