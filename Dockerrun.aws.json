@@ -1,0 +1,12 @@
+{"AWSEBDockerrunVersion": "2",
+ "containerDefinitions": [
+    {
+        "name": "client",
+        "image": "cesgo2009/multi-client",
+        "hostname": "client"
+    }
+
+
+
+    ]
+}
