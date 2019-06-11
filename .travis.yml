@@ -2,10 +2,10 @@ services:
   - docker
 
 before_install:
- # - docker build -t cesgo2009/react-test -f ./client/Dockerfile.dev ./client
+ - docker build -t cesgo2009/react-test -f ./client/Dockerfile.dev ./client
 
 scripts:
-#  - docker run cesgo2009/react-test npm test -- --coverage
+  - docker run cesgo2009/react-test npm test -- --coverage
 
 after_success:
   - docker build -t cesgo2009/multi-client ./client
@@ -20,3 +20,16 @@ after_success:
   - docker push cesgo2009/multi-nginx
   - docker push cesgo2009/multi-server
   - docker push cesgo2009/multi-worker
+
+#deploy:
+  #provider: elasticbeanstalk
+  #region: us-west-1
+  #app: multi-docker
+  #env: Multidocker-env
+  #bucket-name: elasticbeanstalk-us-west-<number>
+  #bucket-path: docker-multi
+  #on:
+    #branch: master
+  #access_key_id: $AWS_Access_KEY
+  #secret_access_key:
+    #secure: $AWS_SECRET_KEY
