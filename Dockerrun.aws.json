@@ -3,10 +3,33 @@
     {
         "name": "client",
         "image": "cesgo2009/multi-client",
-        "hostname": "client"
+        "hostname": "client",
+        "essential": false
+    },
+    {
+        "name": "server",
+        "image": "cesgo2009/multi-server",
+        "hostname": "api",
+        "essential": false
+    },
+    {
+        "name": "worker",
+        "image": "cesgo2009/multi-worker",
+        "hostname": "worker",
+        "essential": false
+    },
+    {
+        "name": "nginx",
+        "image": "cesgo2009/multi-nginx",
+        "hostname": "nginx",
+        "essential": true,
+        "portMappings":  [
+            {
+            "hostPort": 80,
+            "containerPort": 80
+            }
+        ],
+        "links": ["client", "server"]
     }
-
-
-
-    ]
+  ]
 }
